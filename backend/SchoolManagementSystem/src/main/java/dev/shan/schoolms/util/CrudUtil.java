@@ -4,7 +4,8 @@ import java.sql.*;
 
 public class CrudUtil {
 	@SuppressWarnings("unchecked")
-	public <T> T execute (final Connection connection, final String query, final Object ...binds) throws SQLException {
+	public static <T> T execute (final String query, final Object ...binds) throws SQLException {
+		final Connection connection = DBConnection.getInstance().getConnection();
 		final boolean isInsert = query.trim().matches("(?i)^insert\\s+into\\s+.*");
 		final PreparedStatement preparedStatement = connection.prepareStatement(query, isInsert ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
 
